@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FPPlayerMovement : MonoBehaviour
+public class FPPlayerMovement1 : MonoBehaviour
 {
     //character controller
 	public CharacterController controller;
@@ -13,7 +13,7 @@ public class FPPlayerMovement : MonoBehaviour
 	//current speed the player is using
 	public float currentSpeed;
 	//capsule collider
-	CapsuleCollider charCollider;
+	//public CapsuleCollider charCollider;
 
     //vector3
 	Vector3 velocity;
@@ -29,18 +29,13 @@ public class FPPlayerMovement : MonoBehaviour
 	public float groundDistance = 0.4f;
     //groundMask
 	public LayerMask groundMask;
-
-
     //isGrounded
 	bool isGrounded;
-	//isCrouching
-	bool isCrouching;
-
 
     // Start is called before the first frame update
     void Start()
     {
-		charCollider = GetComponent<CapsuleCollider>();
+		//charCollider = GetComponent<CapsuleCollider>;
     }
 
     // Update is called once per frame
@@ -68,12 +63,6 @@ public class FPPlayerMovement : MonoBehaviour
 			currentSpeed = walkSpeed;
 		}
 
-		//crouch
-		if (Input.GetKeyUp(KeyCode.LeftControl) && isGrounded)
-		{
-            DoCrouch();
-		}
-
 		Vector3 move = transform.right * x + transform.forward * z;
 
 		controller.Move(move * currentSpeed * Time.deltaTime);
@@ -87,18 +76,4 @@ public class FPPlayerMovement : MonoBehaviour
 
 		controller.Move(velocity * Time.deltaTime);
     }
-
-    void DoCrouch()
-	{
-		if (isCrouching)
-		{
-			charCollider.height += 1f;
-		}
-		else
-		{
-			charCollider.height -= 1f;
-		}
-        //crouching
-		isCrouching = !isCrouching;
-	}
 }

@@ -6,6 +6,8 @@ public class FPPlayerMovement : MonoBehaviour
 {
     //character controller
 	public CharacterController controller;
+	//cam orientation
+	public Transform orientation;
     //walkspeed
 	public float walkSpeed = 6f;
     //runspeed
@@ -37,6 +39,8 @@ public class FPPlayerMovement : MonoBehaviour
 	bool isCrouching;
 
 
+	
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +50,8 @@ public class FPPlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+		//isgrounded uses physics.checksphere to check if player is grounded
 		isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         //gravity
@@ -74,20 +80,28 @@ public class FPPlayerMovement : MonoBehaviour
             DoCrouch();
 		}
 
+		//movement
 		Vector3 move = transform.right * x + transform.forward * z;
 
+		//character controller movement by movement and current speed and changing time
 		controller.Move(move * currentSpeed * Time.deltaTime);
 
+		//jump
         if(Input.GetButtonDown("Jump") && isGrounded)
 		{
 			velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
 		}
 
+		//gravity
 		velocity.y += gravity * Time.deltaTime;
-
+		//jump
 		controller.Move(velocity * Time.deltaTime);
     }
 
+
+	// <summary>
+    // in progress
+    // </summary>
     void DoCrouch()
 	{
 		if (isCrouching)
@@ -101,4 +115,6 @@ public class FPPlayerMovement : MonoBehaviour
         //crouching
 		isCrouching = !isCrouching;
 	}
+
+
 }

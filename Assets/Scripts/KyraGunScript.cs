@@ -18,14 +18,19 @@ public class KyraGunScript : MonoBehaviour
     public Camera fpsCam;
     //fx for projectile
     public ParticleSystem gunFX;
-    //fx for muzzle flash
-    //public ParticleSystem muzzleFlash;
-
+    //sound fx for weapon charge
+    public AudioSource chargeSFX;
+    //sound fx for firing
+    public AudioSource fireSFX;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        //gun charge sfx
+        chargeSFX = GetComponent<AudioSource>();
+        //gun firing sfx
+        fireSFX = GetComponent<AudioSource>();
         damage = 0f;
     }
 
@@ -37,6 +42,7 @@ public class KyraGunScript : MonoBehaviour
         {
             //charging
             Debug.Log("Charging");
+            chargeSFX.Play();
             damage += Time.deltaTime * chargeSpeed;
         }else if (Input.GetMouseButtonUp(0))
         {
@@ -50,6 +56,7 @@ public class KyraGunScript : MonoBehaviour
    
     void ShootRelease()
     {
+        fireSFX.Play();
         gunFX.Play();
         //muzzleFlash.Play();
         //hits something

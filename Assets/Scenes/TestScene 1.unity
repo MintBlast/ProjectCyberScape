@@ -3357,6 +3357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
+  speed: 20
 --- !u!65 &1267782859
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4322,6 +4323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: LightsModule.enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848810852604725165, guid: 3e17b64c438334a46a4b2b97cfe83a02,
+        type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 5848810852604725166, guid: 3e17b64c438334a46a4b2b97cfe83a02,
         type: 3}

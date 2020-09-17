@@ -1,18 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.Audio;
 using UnityEngine;
 
-public class SoundScript : MonoBehaviour
+public class SoundScript 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public AudioClip clip;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float volume;
+    public float pitch;
 }

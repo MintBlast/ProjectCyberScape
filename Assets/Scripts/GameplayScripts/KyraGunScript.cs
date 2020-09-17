@@ -1,18 +1,25 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 public class KyraGunScript : MonoBehaviour
 {
-    //weapon damage - I know the damage number... I know it's OP
+    //weapon damage 
     public float damage;
+    //add damage when charging
+    public float Add_damage = 10f; 
     //power
     public float power = 10f;
     //max power
     public float maxPower = 100f;
     //charge speed
-    public float chargeSpeed = 100f;
+    public float chargeSpeed = 10f;
     //weapon range
     public float range = 100f;
+    //weapon charge
+    public bool isCharging = false;
+    //charge duration
+    public float ChargeDuration_Current = 0f;
+    
+
 
     //camera
     public Camera fpsCam;
@@ -36,13 +43,23 @@ public class KyraGunScript : MonoBehaviour
         {
             //charging
             Debug.Log("Charging");
-            //chargeSFX.Play();
-            damage += Time.deltaTime * chargeSpeed;
-        }else if (Input.GetMouseButtonUp(0))
+            //current duration of charge
+            ChargeDuration_Current = 0f;
+            //charging is true
+            isCharging = true;
+            
+        }else if (Input.GetMouseButtonUp(0) && isCharging )
         {
             //shoots
             ShootRelease();
+            isCharging = false;
             damage = 0f;
+        }
+
+        if (isCharging)
+        {
+            
+            damage += Add_damage * power * Time.deltaTime * chargeSpeed;
         }
     }
 
@@ -51,7 +68,7 @@ public class KyraGunScript : MonoBehaviour
     void ShootRelease()
     {
         
-        //muzzleFlash.Play();
+        gunFX.Play();
         //hits something
         RaycastHit Hit;
         //shoots at the position of the camera, the direction where it shoots - forward, raycast variable and the range

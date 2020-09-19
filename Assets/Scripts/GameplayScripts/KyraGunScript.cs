@@ -47,7 +47,9 @@ public class KyraGunScript : MonoBehaviour
             ChargeDuration_Current = 0f;
             //charging is true
             isCharging = true;
-            
+			//find audiomanager script
+			FindObjectOfType<AudioManager>().Play("Railgun Charge");
+
         }else if (Input.GetMouseButtonUp(0) && isCharging )
         {
             //shoots
@@ -58,7 +60,6 @@ public class KyraGunScript : MonoBehaviour
 
         if (isCharging)
         {
-            
             damage += Add_damage * power * Time.deltaTime * chargeSpeed;
         }
     }
@@ -67,8 +68,11 @@ public class KyraGunScript : MonoBehaviour
    
     void ShootRelease()
     {
-        
-        gunFX.Play();
+        //play sound
+		FindObjectOfType<AudioManager>().Play("Railgun Fire");
+		//stop previous sound
+		FindObjectOfType<AudioManager>().Stop("Railgun Charge");
+		gunFX.Play();
         //hits something
         RaycastHit Hit;
         //shoots at the position of the camera, the direction where it shoots - forward, raycast variable and the range

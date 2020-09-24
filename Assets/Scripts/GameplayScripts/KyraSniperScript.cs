@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class KyraSniperScript : MonoBehaviour
 {
@@ -19,26 +20,46 @@ public class KyraSniperScript : MonoBehaviour
     //charge duration
     public float ChargeDuration_Current = 0f;
     
-
+    public int maxAmmo = 10;
+    public int currentAmmo;
+	public float reloadTime = 3f;
+	private bool isReloading = false;
 
     //camera
     public Camera fpsCam;
     //fx for projectile
     public ParticleSystem gunFX;
-    
-    
+    //animator
+	public Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+		currentAmmo = maxAmmo;
         damage = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
+	void OnEnable()
+	{
+		isReloading = false;
+		animator.SetBool("Reloading", false);
+	}
+
+	// Update is called once per frame
+	void Update()
     {
-        //Hold left mouse button
-        if (Input.GetMouseButtonDown(0))
+
+		if (isReloading)
+			return;
+
+		if (currentAmmo <= 0 || Input.GetKeyDown(KeyCode.R))
+		{
+			StartCoroutine(Reload());
+			return;
+		}
+
+		//Hold left mouse button
+		if (Input.GetMouseButtonDown(0))
         {
             //charging
             Debug.Log("Charging");
@@ -61,12 +82,36 @@ public class KyraSniperScript : MonoBehaviour
         {
             damage += Add_damage * power * Time.deltaTime * chargeSpeed;
         }
+
     }
 
+    IEnumerator Reload()
+	{
 
+		isReloading = true;
+
+		Debug.Log("Reloading...");
+
+        //reload animation plays
+		animator.SetBool("Reloading", true);
+
+        //wait for reload time to finish
+		yield return new WaitForSeconds(reloadTime - .25f);
+
+		//reload animation stops
+		animator.SetBool("Reloading", false);
+
+		yield return new WaitForSeconds(.25f);
+
+		//reloaded
+		currentAmmo = maxAmmo;
+
+		isReloading = false;
+	}
    
     void ShootRelease()
-    {
+	{
+		currentAmmo--;
         //play sound
 		FindObjectOfType<AudioManager>().Play("Railgun Fire");
 		//stop previous sound

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class KyraSniperScript : MonoBehaviour
 {
@@ -11,8 +12,6 @@ public class KyraSniperScript : MonoBehaviour
     public float power = 10f;
     //max power
     public float maxPower = 100f;
-    //charge speed
-    public float chargeSpeed = 10f;
     //weapon range
     public float range = 100f;
     //weapon charge
@@ -24,6 +23,9 @@ public class KyraSniperScript : MonoBehaviour
     public int currentAmmo;
 	public float reloadTime = 3f;
 	private bool isReloading = false;
+    //cool down time
+    private float cooldownTime = 3f;
+    
 
     //camera
     public Camera fpsCam;
@@ -31,6 +33,13 @@ public class KyraSniperScript : MonoBehaviour
     public ParticleSystem gunFX;
     //animator
 	public Animator animator;
+
+	//ammo display
+	public Text ammoDisplay;
+	//max ammo display
+	public Text MaxAmmoDisplay;
+	//weapon name display
+	public Text weaponName;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +50,7 @@ public class KyraSniperScript : MonoBehaviour
 
 	void OnEnable()
 	{
+        //reloading is set to false when startings
 		isReloading = false;
 		animator.SetBool("Reloading", false);
 	}
@@ -48,15 +58,24 @@ public class KyraSniperScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
+		
 
+        //when reload 
 		if (isReloading)
 			return;
 
+        //when current ammo is 0 and or R key is pressed
 		if (currentAmmo <= 0 || Input.GetKeyDown(KeyCode.R))
 		{
+            //reload
 			StartCoroutine(Reload());
 			return;
 		}
+
+		//ammo is displayed
+		ammoDisplay.text = currentAmmo.ToString();
+		//max ammo is displayed
+		MaxAmmoDisplay.text = maxAmmo.ToString();
 
 		//Hold left mouse button
 		if (Input.GetMouseButtonDown(0))
@@ -70,7 +89,12 @@ public class KyraSniperScript : MonoBehaviour
 			//find audiomanager script
 			FindObjectOfType<AudioManager>().Play("Railgun Charge");
 
-        }else if (Input.GetMouseButtonUp(0) && isCharging )
+            if (damage == maxPower && isCharging)
+            {
+                ShootRelease();
+			}
+
+        }else if (Input.GetMouseButtonUp(0) && isCharging)
         {
             //shoots
             ShootRelease();
@@ -80,7 +104,7 @@ public class KyraSniperScript : MonoBehaviour
 
         if (isCharging)
         {
-            damage += Add_damage * power * Time.deltaTime * chargeSpeed;
+            damage += Add_damage + power * Time.deltaTime;
         }
 
     }
@@ -130,7 +154,19 @@ public class KyraSniperScript : MonoBehaviour
                 target.TakeDamage(damage);
             }
         }
+
+        StartCoroutine(CoolDown());
+        return;
     }
 
-    
+    IEnumerator CoolDown()
+	{
+        //pauses for 3 seconds in cooldown time
+        yield return new WaitForSeconds(cooldownTime);
+
+        Debug.Log("Cooling");
+
+		Update();
+	}
+
 }

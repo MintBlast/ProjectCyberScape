@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PDW45_Script : MonoBehaviour
 {
@@ -24,6 +25,13 @@ public class PDW45_Script : MonoBehaviour
 	//reload time
 	public float reloadTime = 1f;
 
+	//ammo display
+	public Text ammoDisplay;
+	//max ammo display
+	public Text MaxAmmoDisplay;
+	//weapon name display
+	public Text weaponName;
+
     void Start()
 	{
 		currentAmmo = maxAmmo;
@@ -31,6 +39,7 @@ public class PDW45_Script : MonoBehaviour
 
     void OnEnable()
 	{
+        //reloading is set to false when starting
 		isReloading = false;
 		animator.SetBool("Reloading", false);
 	}
@@ -38,15 +47,24 @@ public class PDW45_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		
 
+        //when reloading
 		if (isReloading)
 			return;
 
-        if (currentAmmo <= 0 || Input.GetKeyDown(KeyCode.R))
+		//when current ammo is 0 and or R key is presse
+		if (currentAmmo <= 0 || Input.GetKeyDown(KeyCode.R))
 		{
+            //reload
 			StartCoroutine(Reload());
 			return;
 		}
+
+		//ammo is displayed
+		ammoDisplay.text = currentAmmo.ToString();
+		//max ammo is displayed
+		MaxAmmoDisplay.text = maxAmmo.ToString();
 
         //click left mouse button
         if (Input.GetButtonDown("Fire1"))

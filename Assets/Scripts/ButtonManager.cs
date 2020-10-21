@@ -19,11 +19,13 @@ public class ButtonManager : MonoBehaviour
 
     public void GotoSampleScene()
     {
+        //loads the game test scene
         SceneManager.LoadScene("TestScene");
     }
 
     public void GotoMenuScene()
     {
+        //loads the menu scene 
         SceneManager.LoadScene("MenuScene");
     }
 }

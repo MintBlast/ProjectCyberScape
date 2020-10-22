@@ -103,9 +103,15 @@ public class PDW45_Script : MonoBehaviour
 			Debug.Log(Hit.transform.name);
 
 			TargetScript target = Hit.transform.GetComponent<TargetScript>();
-            if (target != null)
+			EnemyTargetScript enemytarget = Hit.transform.GetComponent<EnemyTargetScript>();
+			if (target != null)
 			{
 				target.TakeDamage(damage);
+			}
+
+			if (enemytarget != null)
+			{
+				enemytarget.TakeDamage(damage);
 			}
 		}
 	}

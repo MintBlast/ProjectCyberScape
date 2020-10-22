@@ -124,18 +124,19 @@ public class EnemyTargetScript : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float amount)
     {
-        health -= damage;
+        health -= amount;
 
-        if (health <= 0)
+        if (health <= 0f)
         {
-            Invoke(nameof(DestroyEnemy), .5f);
+            Die();
         }
     }
 
-    private void DestroyEnemy()
+    void Die()
     {
         Destroy(gameObject);
+        Debug.Log("Enemy Down");
     }
 }

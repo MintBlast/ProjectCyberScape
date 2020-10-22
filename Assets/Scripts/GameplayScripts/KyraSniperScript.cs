@@ -10,8 +10,8 @@ public class KyraSniperScript : MonoBehaviour
     public float Add_damage = 10f; 
     //power
     public float power = 10f;
-    //max power
-    public float maxPower = 100f;
+    //max damage
+    public float maxDamage = 100f;
     //weapon range
     public float range = 100f;
     //weapon charge
@@ -89,7 +89,7 @@ public class KyraSniperScript : MonoBehaviour
 			//find audiomanager script
 			FindObjectOfType<AudioManager>().Play("Railgun Charge");
 
-            if (damage == maxPower && isCharging)
+            if (damage == maxDamage)
             {
                 ShootRelease();
 			}
@@ -104,7 +104,7 @@ public class KyraSniperScript : MonoBehaviour
 
         if (isCharging)
         {
-            damage += Add_damage + power * Time.deltaTime;
+            damage = damage + Add_damage;
         }
 
     }
@@ -146,12 +146,18 @@ public class KyraSniperScript : MonoBehaviour
         //shoots at the position of the camera, the direction where it shoots - forward, raycast variable and the range
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out Hit, range))
         {
-            Debug.Log(Hit.transform.name);
+            Debug.Log("hit: " + Hit.transform.name);
 
             TargetScript target = Hit.transform.GetComponent<TargetScript>();
+            EnemyTargetScript enemytarget = Hit.transform.GetComponent<EnemyTargetScript>();
             if (target != null)
             {
                 target.TakeDamage(damage);
+            }
+
+            if (enemytarget != null)
+            {
+                enemytarget.TakeDamage(damage);
             }
         }
 

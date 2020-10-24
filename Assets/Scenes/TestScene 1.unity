@@ -543,7 +543,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20288
+  m_Name: pb_Mesh20280
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2605,7 +2605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565001452}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.356457, y: 0, z: -9.806133}
+  m_LocalPosition: {x: 8.356457, y: -0.18, z: -9.806133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1190529736}
@@ -2987,7 +2987,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 5, y: 5}
+  m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &999479655
 MonoBehaviour:
@@ -3002,7 +3002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3274,7 +3274,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh20304
+  m_Name: pb_Mesh20296
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4263,6 +4263,11 @@ PrefabInstance:
       propertyPath: MaxAmmoDisplay
       value: 
       objectReference: {fileID: 636443713}
+    - target: {fileID: 7340587331214959174, guid: 6a10a184741a04fa9ab9b52ca19553f7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.134
+      objectReference: {fileID: 0}
     - target: {fileID: 7340587331309471459, guid: 6a10a184741a04fa9ab9b52ca19553f7,
         type: 3}
       propertyPath: far clip plane
@@ -4271,7 +4276,17 @@ PrefabInstance:
     - target: {fileID: 7340587331397990002, guid: 6a10a184741a04fa9ab9b52ca19553f7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.3106
+      value: 0.2699
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340587331397990002, guid: 6a10a184741a04fa9ab9b52ca19553f7,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.28426003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7340587331397990002, guid: 6a10a184741a04fa9ab9b52ca19553f7,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.13541035
       objectReference: {fileID: 0}
     - target: {fileID: 7340587331717042348, guid: 6a10a184741a04fa9ab9b52ca19553f7,
         type: 3}

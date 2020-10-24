@@ -112,7 +112,7 @@ public class EnemyTargetScript : MonoBehaviour
         if (!alreadyAttacked)
         {
             //attack code here
-
+            
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

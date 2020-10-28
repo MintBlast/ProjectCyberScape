@@ -94,23 +94,32 @@ public class PDW45_Script : MonoBehaviour
 
     void Shoot()
 	{
+		//-1 ammo
 		currentAmmo--;
+
+		//sound and fx plays
 		FindObjectOfType<AudioManager>().Play("PDW-45 Fire SFX");
+		gunFX.Play();
+
+		//raycast
 		RaycastHit Hit;
 
         if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out Hit, range))
 		{
 			Debug.Log(Hit.transform.name);
-
+			//checks the targetscript
 			TargetScript target = Hit.transform.GetComponent<TargetScript>();
+			//checks the enemyscript
 			EnemyTargetScript enemytarget = Hit.transform.GetComponent<EnemyTargetScript>();
 			if (target != null)
 			{
+				//take damage
 				target.TakeDamage(damage);
 			}
 
 			if (enemytarget != null)
 			{
+				//take damage
 				enemytarget.TakeDamage(damage);
 			}
 		}

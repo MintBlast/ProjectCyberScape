@@ -23,8 +23,11 @@ public class KyraSniperScript : MonoBehaviour
     public int currentAmmo;
 	public float reloadTime = 3f;
 	private bool isReloading = false;
+
     //cool down time
     private float cooldownTime = 3f;
+    //is cooled
+    private bool isCooled = true;
     
 
     //camera
@@ -78,7 +81,7 @@ public class KyraSniperScript : MonoBehaviour
 		MaxAmmoDisplay.text = maxAmmo.ToString();
 
 		//Hold left mouse button
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && isCooled)
         {
             //charging
             Debug.Log("Charging");
@@ -167,12 +170,16 @@ public class KyraSniperScript : MonoBehaviour
 
     IEnumerator CoolDown()
 	{
+        isCooled = false;
         //pauses for 3 seconds in cooldown time
+        yield return new WaitForSeconds(0.5f);
+
+        Debug.Log("Overheat! Cooling Down!");
+
         yield return new WaitForSeconds(cooldownTime);
 
-        Debug.Log("Cooling");
-
-		Update();
+        Debug.Log("Cooled");
+        isCooled = true;
 	}
 
 }

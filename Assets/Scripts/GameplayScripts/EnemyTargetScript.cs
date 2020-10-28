@@ -28,10 +28,23 @@ public class EnemyTargetScript : MonoBehaviour
     //health
     public float health = 100f;
 
+    //attack time
+    public float AttackTime = 2f;
+
+    public bool CanAttack = true;
+
+    //damage
+    public float damage = 25f;
+
+    //private PlayerHealth playerHealth;
+
+    
+
     private void Awake()
     {
         player = GameObject.Find("First Person Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        //playerHealth = player.GameObject.GetComponent<PlayerHealth>();
     }
 
     private void Update()
@@ -39,6 +52,7 @@ public class EnemyTargetScript : MonoBehaviour
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, IdentifyPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, IdentifyPlayer);
+        
 
         //if player is not spotted and not in range
         if (!playerInSightRange && !playerInAttackRange)
@@ -64,7 +78,7 @@ public class EnemyTargetScript : MonoBehaviour
 
     private void Patrolling()
     {
-        
+
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -111,8 +125,7 @@ public class EnemyTargetScript : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            //attack code here
-            
+            //ShootPlayer();
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -126,10 +139,13 @@ public class EnemyTargetScript : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        //amount of damage taken 
         health -= amount;
 
+        //when hp is 0
         if (health <= 0f)
         {
+            //dies
             Die();
         }
     }
@@ -139,4 +155,19 @@ public class EnemyTargetScript : MonoBehaviour
         Destroy(gameObject);
         Debug.Log("Enemy Down");
     }
+
+    /*void ShootPlayer()
+    {
+        RaycastHit Hit;
+
+        if(Physics.Raycast(transform.position, transform.forward, out Hit))
+        {
+            playerHealth = Hit.transform.GetComponent<PlayerHealth>();
+            if(playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+            }
+        }
+    }*/
 }
+

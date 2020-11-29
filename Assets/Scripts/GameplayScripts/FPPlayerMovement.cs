@@ -66,18 +66,12 @@ public class FPPlayerMovement : MonoBehaviour
 		float z = Input.GetAxis("Vertical");
 
         //sprint
-        if(Input.GetKey(KeyCode.LeftShift) && isGrounded)
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W) && isGrounded)
 		{
 			currentSpeed = runSpeed;
 		}else
 		{
 			currentSpeed = walkSpeed;
-		}
-
-		//crouch
-		if (Input.GetKeyUp(KeyCode.LeftControl) && isGrounded)
-		{
-            DoCrouch();
 		}
 
 		//movement
@@ -92,6 +86,12 @@ public class FPPlayerMovement : MonoBehaviour
 			velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
 		}
 
+		//crouch
+		if (Input.GetKeyUp(KeyCode.LeftControl) && isGrounded)
+		{
+			DoCrouch();
+		}
+
 		//gravity
 		velocity.y += gravity * Time.deltaTime;
 		//jump
@@ -104,6 +104,8 @@ public class FPPlayerMovement : MonoBehaviour
     // </summary>
     void DoCrouch()
 	{
+		isCrouching = true;
+
 		if (isCrouching)
 		{
 			charCollider.height += 1f;
@@ -112,8 +114,7 @@ public class FPPlayerMovement : MonoBehaviour
 		{
 			charCollider.height -= 1f;
 		}
-        //crouching
-		isCrouching = !isCrouching;
+        
 	}
 
 

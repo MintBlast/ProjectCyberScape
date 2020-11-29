@@ -28,5 +28,15 @@ public class ButtonManager : MonoBehaviour
         //loads the menu scene 
         SceneManager.LoadScene("MenuScene");
     }
+
+    public void GotoMenuScene()
+    {
+        SceneManager.LoadScene("LobbyScene");
+    }
+
+    public void GotoSampleScene()
+    {
+        SceneManager.LoadScene("");
+    }
 }
 

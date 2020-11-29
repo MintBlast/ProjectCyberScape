@@ -7,17 +7,15 @@ public class KyraSniperScript : MonoBehaviour
     //weapon damage 
     public float damage;
     //add damage when charging
-    public float Add_damage = 10f; 
+    public float Add_damage = 1f; 
     //power
     public float power = 10f;
     //max damage
-    public float maxDamage = 100f;
+    public float maxDamage = 250f;
     //weapon range
     public float range = 100f;
     //weapon charge
     public bool isCharging = false;
-    //charge duration
-    public float ChargeDuration_Current = 0f;
     
     public int maxAmmo = 10;
     public int currentAmmo;
@@ -61,8 +59,6 @@ public class KyraSniperScript : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		
-
         //when reload 
 		if (isReloading)
 			return;
@@ -85,18 +81,11 @@ public class KyraSniperScript : MonoBehaviour
         {
             //charging
             Debug.Log("Charging");
-            //current duration of charge
-            ChargeDuration_Current = 0f;
             //charging is true
             isCharging = true;
 			//find audiomanager script
 			FindObjectOfType<AudioManager>().Play("Railgun Charge");
-
-            if (damage == maxDamage)
-            {
-                ShootRelease();
-			}
-
+        //release button
         }else if (Input.GetMouseButtonUp(0) && isCharging)
         {
             //shoots
@@ -107,7 +96,13 @@ public class KyraSniperScript : MonoBehaviour
 
         if (isCharging)
         {
-            damage = damage + Add_damage;
+            damage += Add_damage;
+            if(Input.GetMouseButtonUp(0) || damage == maxDamage)
+            {
+                ShootRelease();
+                isCharging = false;
+                damage = 0f;
+            }
         }
 
     }
@@ -174,12 +169,12 @@ public class KyraSniperScript : MonoBehaviour
         //pauses for 3 seconds in cooldown time
         yield return new WaitForSeconds(0.5f);
 
-        Debug.Log("Overheat! Cooling Down!");
+        Debug.Log("Overheat! Cooling Down for " + cooldownTime + " seconds");
 
         yield return new WaitForSeconds(cooldownTime);
 
-        Debug.Log("Cooled");
         isCooled = true;
-	}
+        Debug.Log("Cooled");
+    }
 
 }

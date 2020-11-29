@@ -7,8 +7,8 @@ public class ScopeAimScript : MonoBehaviour
     //animator
 	public Animator animator;
 
-	//scope overlay image
-	//public GameObject scopeOverlay;
+	//crosshair image
+	public GameObject crosshairImage;
 
 	//weapon cam
 	public GameObject weaponCamera;
@@ -35,8 +35,26 @@ public class ScopeAimScript : MonoBehaviour
 			isScoped = !isScoped;
 			animator.SetBool("Scoped", isScoped);
 
+            if(isScoped)
+            {
+                StartCoroutine(OnScoped());
+            }else
+            {
+                NotScoped();
+            }
+
 		}
     }
 
-    
+    IEnumerator OnScoped() 
+    {
+        yield return new WaitForSeconds(.15f);
+        crosshairImage.SetActive(false);
+    } 
+
+
+    void NotScoped()
+    {
+        crosshairImage.SetActive(true);
+    }
 }

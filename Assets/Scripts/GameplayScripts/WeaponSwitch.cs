@@ -15,6 +15,7 @@ public class WeaponSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//current weapon
 		int previousSelectedWeapon = selectedWeapon;
 
         //when the scroll wheel goes up
